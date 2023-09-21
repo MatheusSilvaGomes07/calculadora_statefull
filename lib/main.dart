@@ -54,7 +54,7 @@ class _CalculadoraAcademica extends StatefulWidget {
 class __CalculadoraAcademicaState extends State<_CalculadoraAcademica> {
   final Disciplina disciplina = Disciplina();
   double media = 0.0;
-  int currentColorIndex = 0; // Índice da cor atual
+  int currentColorIndex = 0;
   final List<Color> rainbowColors = [
     Colors.red,
     Colors.orange,
@@ -63,23 +63,19 @@ class __CalculadoraAcademicaState extends State<_CalculadoraAcademica> {
     Colors.blue,
     Colors.indigo,
     Colors.purple,
-  ]; // Lista de cores do arco-íris
+  ];
 
   @override
   void initState() {
     super.initState();
-    // Inicialize um loop de animação para trocar as cores da AppBar
     startColorAnimation();
   }
 
-  // Função para iniciar o loop de animação de cores
   void startColorAnimation() {
     const Duration colorChangeDuration = Duration(seconds: 1);
 
-    // Use um Timer periódico para trocar as cores
     Timer.periodic(colorChangeDuration, (timer) {
       setState(() {
-        // Aumente o índice da cor atual ou reinicie se chegarmos ao final da lista
         currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
       });
     });
@@ -90,7 +86,7 @@ class __CalculadoraAcademicaState extends State<_CalculadoraAcademica> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calculadora Acadêmica'),
-        backgroundColor: rainbowColors[currentColorIndex], // Cor da AppBar
+        backgroundColor: rainbowColors[currentColorIndex],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -165,7 +161,6 @@ class __CalculadoraAcademicaState extends State<_CalculadoraAcademica> {
               keyboardType: TextInputType.number,
               onChanged: (valor) {
                 setState(() {
-                  // Atualize a nota diretamente no objeto Disciplina
                   switch (label) {
                     case 'TR1':
                       disciplina.tr1 = double.tryParse(valor) ?? 0.0;

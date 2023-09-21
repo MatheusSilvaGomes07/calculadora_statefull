@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MaterialApp(
     home: CalculadoraAcademica(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 
@@ -86,6 +88,29 @@ class _CalculadoraAcademicaState extends State<CalculadoraAcademica> {
             Text(
               'Média: ${media.toStringAsFixed(2)}',
               style: const TextStyle(fontSize: 20.0),
+            ),
+            Container(
+              color: Colors.grey[200],
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    'Feito por Matheus Silva Gomes, estudante da Fatec de Carapicuíba',
+                    style: TextStyle(fontSize: 12.0),
+                  ),
+                  const Text(
+                    'RA: 1431432312017',
+                    style: TextStyle(fontSize: 12.0),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      launch('https://github.com/MatheusSilvaGomes07/calculadora_statefull');
+                    },
+                    child: const Text('Link do Repositório'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

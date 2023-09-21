@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
 
 void main() {
   runApp(const MaterialApp(
-    home: CalculadoraAcademica(),
+    home: _CalculadoraAcademica(),
     debugShowCheckedModeBanner: false,
   ));
 }
@@ -43,22 +44,53 @@ class Disciplina {
   }
 }
 
-class CalculadoraAcademica extends StatefulWidget {
-  const CalculadoraAcademica({Key? key}) : super(key: key);
+class _CalculadoraAcademica extends StatefulWidget {
+  const _CalculadoraAcademica({Key? key}) : super(key: key);
 
   @override
-  _CalculadoraAcademicaState createState() => _CalculadoraAcademicaState();
+  __CalculadoraAcademicaState createState() => __CalculadoraAcademicaState();
 }
 
-class _CalculadoraAcademicaState extends State<CalculadoraAcademica> {
+class __CalculadoraAcademicaState extends State<_CalculadoraAcademica> {
   final Disciplina disciplina = Disciplina();
   double media = 0.0;
+  int currentColorIndex = 0; // Índice da cor atual
+  final List<Color> rainbowColors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.indigo,
+    Colors.purple,
+  ]; // Lista de cores do arco-íris
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicialize um loop de animação para trocar as cores da AppBar
+    startColorAnimation();
+  }
+
+  // Função para iniciar o loop de animação de cores
+  void startColorAnimation() {
+    const Duration colorChangeDuration = Duration(seconds: 1);
+
+    // Use um Timer periódico para trocar as cores
+    Timer.periodic(colorChangeDuration, (timer) {
+      setState(() {
+        // Aumente o índice da cor atual ou reinicie se chegarmos ao final da lista
+        currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calculadora Acadêmica'),
+        backgroundColor: rainbowColors[currentColorIndex], // Cor da AppBar
       ),
       body: SingleChildScrollView(
         child: Column(
